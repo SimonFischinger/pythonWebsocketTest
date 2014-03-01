@@ -3,11 +3,24 @@ from autobahn.twisted.websocket import WebSocketServerProtocol, \
  
  
 class MyServerProtocol(WebSocketServerProtocol):
+	def onMessage(self, payload, isBinary):
+		messageCounter()	
+		self.sendMessage(payload+"hellooooooooo", isBinary)
+		
+		if (getCount() == 5):
+			self.sendMessage("FUMPF")
+			
  
-   def onMessage(self, payload, isBinary):
-      self.sendMessage(payload, isBinary)
- 
- 
+
+count = 0;
+def messageCounter():
+	global count
+	count += 1
+
+def getCount():
+	global count
+	return count
+	 
 if __name__ == '__main__':
  
    import sys
